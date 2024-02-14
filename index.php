@@ -13,7 +13,12 @@ $new_date = str_replace('"', '', $old_date[2]) . '-' . str_replace('"', '', $old
 
 switch ($method) {
     case 'GET':
-        $stmt = $pdo->query("SELECT employee_id,auth_date_1,device_serial_no FROM raw_attendances WHERE auth_date_2 = '$new_date' AND device_name = '$device_name'");
+        $stmt = $pdo->query("SELECT employee_id,
+        min(auth_date_3) as original_arrival_time,
+        max(auth_date_3) as original_departure_time,
+        min(auth_date_3) as arrival_time,
+        max(auth_date_3) as departure_time
+        FROM raw_attendances WHERE auth_date_2 = '$new_date' AND device_name = '$device_name' GROUP BY employee_id");
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($result);
         break;
