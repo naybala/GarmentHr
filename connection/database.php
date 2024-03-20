@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = 'gfms_hr';
+$dbname = 'gfms_tesing';
 $username = 'root';
 $password = 'never';
 try {
